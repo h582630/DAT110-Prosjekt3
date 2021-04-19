@@ -6,20 +6,15 @@ package no.hvl.dat110.util;
  * @author tdoy
  */
 
+import no.hvl.dat110.middleware.Node;
+import no.hvl.dat110.rpc.interfaces.NodeInterface;
+
 import java.math.BigInteger;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import no.hvl.dat110.middleware.Node;
-import no.hvl.dat110.rpc.interfaces.NodeInterface;
+import java.util.*;
 
 public class Util {
 	 
@@ -43,6 +38,17 @@ public class Util {
 		
 		// implement: read the descriptions above
 		boolean cond = false;
+
+		if(lower.compareTo(upper) > 0){
+			upper = upper.add(Hash.addressSize());
+			if(id.compareTo(lower) < 0){
+				id = id.add(Hash.addressSize());
+			}
+		}
+
+		if(id.compareTo(lower) >= 0 && id.compareTo(upper) <= 0){
+			cond = true;
+		}
 
 		
 		return cond;
